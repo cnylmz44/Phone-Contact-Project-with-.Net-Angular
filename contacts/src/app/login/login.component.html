@@ -1,0 +1,80 @@
+<!-- <nav class="navbar navbar-dark bg-success">
+  <a class="navbar-brand" href="#">
+    <i class="bi bi-people-fill" style="margin-left: 20px;margin-right: 5px;"></i>
+    Contacts
+  </a>
+</nav> -->
+<body class="text-center">    
+    <main class="form-signin">
+      <form [formGroup]="loginForm">
+        <img class="mb-4" src="../assets/pngegg.png" alt="" width="150" height="150">
+        <h1 class="h3 mb-3 fw-normal">Please Login</h1>
+    
+        <div class="form-floating">
+          <input formControlName="mail" type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+          <label for="floatingInput">Email address</label>
+        </div>
+        <div class="form-floating">
+          <input formControlName="password" type="password" class="form-control" id="floatingPassword" placeholder="Password">
+          <label for="floatingPassword">Password</label>
+        </div>
+        <div class="checkbox mb-3">
+          <label>
+            <input type="checkbox" value="remember-me"> Remember me
+          </label>
+        </div>
+        <button class="w-100 btn btn-lg btn-success" (click)="login()">Login</button>
+        <div class="mt-3">
+          <label>
+            <button class="btn btn-outline-success" (click)="open(content)">Create New Account</button>
+          </label>
+        </div>
+      </form>
+    </main> 
+</body>
+
+<ng-template #content let-modal><!--Add-->
+  <div class="modal-header">
+    <h5 class="modal-title" *ngIf="editable!=false" id="modal-basic-title">+Create New Account</h5>
+    <h5 class="modal-title" *ngIf="editable==false" id="modal-basic-title">Account information</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="modal.close('Save click')"></button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="registerForm">
+      <div class="mb-2" style="text-align: center;">  
+        <img  id="userImage"  src="../assets/photos/anonymous.jpg" alt="" style="width: 100px;height: 100px;">
+      </div>
+      <div class="mb-2">
+        <label>Name</label>
+        <div class="form-group">
+            <input type="text" class="form-control" formControlName="firsT_NAME" *ngIf="editable!=false" placeholder="Enter name"/>
+            <input type="text" class="form-control" formControlName="firsT_NAME" *ngIf="editable==false" placeholder="Enter name" readonly="readonly"/>
+        </div>
+      </div>
+      <div class="mb-2">
+        <label>Surname</label>
+        <div class="form-group">
+            <input type="text" class="form-control" formControlName="lasT_NAME" *ngIf="editable!=false" placeholder="Enter surname"/>
+            <input type="text" class="form-control" formControlName="lasT_NAME" *ngIf="editable==false" placeholder="Enter surname" readonly="readonly"/>
+        </div>
+      </div>
+      <div class="mb-2">
+        <label>E-Mail</label>
+        <div class="form-group">
+            <input type="text" class="form-control" formControlName="mail" *ngIf="editable!=false" placeholder="Enter a e-mail adress"/>
+            <input type="text" class="form-control" formControlName="mail" *ngIf="editable==false" placeholder="Enter a e-mail adress" readonly="readonly"/>
+        </div>
+      </div>
+      <div class="mb-2">
+        <label>Password</label>
+        <div class="form-group">
+          <input type="password" class="form-control" formControlName="password" *ngIf="editable!=false" placeholder="Enter a password"/>  
+          <input type="password" class="form-control" formControlName="password" *ngIf="editable==false" placeholder="Enter a password" readonly="readonly"/>
+        </div>
+      </div>
+    </form>
+  </div> 
+  <div class="modal-footer">
+    <button type="button" id="cancel" class="btn btn-fill btn-success" (click)="register()">Sign In</button> 
+  </div>  
+</ng-template>

@@ -1,0 +1,59 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-success">
+    <div class="container-fluid">
+      <div style="width: 40px;"></div>
+      <a class="navbar-brand" href="http://localhost:4200/">Contacts</a>
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0"></ul>
+      <i class="bi bi-grid-3x3-gap-fill" (click)="open(content)"></i>
+      <i class="bi bi-gear-fill"></i>
+      <i class="bi bi-person-circle" id="userIcon" (click)="open(content2)"></i> 
+    </div>
+</nav>
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title" id="modal-basic-title">Applications</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="modal.close('Save click')"></button>
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col" id="col">
+        <a href="https://mail.google.com/"><img src="../assets/applications/logo-gmail.png" alt=""></a><p>Mail</p>
+      </div>
+      <div class="col" id="col">
+        <a href="https://web.whatsapp.com/"><img src="../assets/applications/79dc31280371b8ffbe56ec656418e122.png" alt=""></a><p>Whatsapp</p>
+      </div>
+      <div class="col" id="col">
+        <a href="https://www.instagram.com/"><img src="../assets/applications/instagram-logos-png-images-free-download-2.png" alt=""></a><p>Instagram</p>
+      </div>
+    </div>
+    <div class="row" >
+      <div class="col" id="col">
+        <a href="https://twitter.com/"><img src="../assets/applications/twitter.png" alt=""></a><p>Twitter</p>
+      </div>
+      <div class="col" id="col">
+        <a href="https://web.bip.com/"><img src="../assets/applications/BiP.png" alt=""></a><p>Bip</p>
+      </div>
+      <div class="col" id="col">
+        <a href="https://web.telegram.org/"><img src="../assets/applications/906377.png" alt=""></a><p>Telegram</p>  
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #content2 let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title" id="modal-basic-title">User Information</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="modal.close('Save click')"></button>
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <img id="userImage" src="../assets/user.png" alt="">
+        <br><br>
+        <h5>{{mail}}</h5>
+        <br>
+        <button type="button" class="btn btn-outline-danger" (click)="signOut()">Sign Out</button>
+      </div>
+    </div>
+  </div>
+</ng-template>

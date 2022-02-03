@@ -1,0 +1,94 @@
+.row>*{
+    padding-right: 0px;
+}
+#contactInfos:hover{
+    background:palegreen;
+    cursor: pointer;
+}
+
+#settings{
+    visibility: hidden;
+}    
+
+#contactInfos:hover #settings{
+    visibility: visible;
+}
+
+#container{
+    margin-left: 20px;
+    margin-right: 20px;
+}
+.container{
+    width: 100%;
+}
+i{
+    float: right;
+    font-size: 20px;
+    color: gray;
+    margin-right: 15px;
+    cursor: pointer;
+}
+
+i:hover{
+    color: black;
+}
+
+#star:hover{
+    color: rgb(255, 220, 22);
+}
+
+#cancel,#delete{
+    float: right;
+    margin-left: 5px;
+}
+
+#contactImage{
+    font-size: 35px;
+    float: left;
+}
+
+#addIcon{
+    color: white;
+    font-size: 35px;
+    margin-right: 10px;
+}
+
+#addButton{
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+
+#addButtonDiv{
+    position: absolute;
+    float: right;
+    text-align: center;
+    height: 100px;
+    width: 150px;
+    right: 3px;
+    bottom: 5px;
+    position: fixed;
+    z-index: 1;
+}
+
+img{
+    height: 60px;
+    width: 60px;
+    border-radius: 50%;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+
+#spinner{
+    margin-top: 200px;
+    font-size: x-large;
+}
+
+@media screen and (max-width: 759px) {
+    #mailBlock {
+      display: none;
+    }
+    #numberBlock {
+       display: none;
+      }
+  }

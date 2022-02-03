@@ -1,0 +1,29 @@
+img{
+    height: 60px;
+    width: 60px;
+    border-radius: 50%;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+
+#contactInfos:hover{
+    background:palegreen;
+    cursor: pointer;
+}
+
+#container{
+    margin-left: 20px;
+    margin-right: 20px;
+}
+.container{
+    width: 100%;
+}
+
+#cancel,#delete{
+    float: right;
+    margin-left: 5px;
+}
+
+#spinner{
+    margin-top: 200px;
+    font-size: x-large;
+}

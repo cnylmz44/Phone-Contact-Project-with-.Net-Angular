@@ -1,0 +1,115 @@
+<div id="container">   
+    <div *ngIf="dataLoaded==false" class="text-center" id="spinner" >
+      <div class="spinner-border text-success" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>
+  
+    <br>
+    
+    <!-- <input type="file" class="file-input" (change)="onFileSelected($event)" #fileUpload> -->
+  
+  <table datatable class="row-border stripe" *ngIf="dataLoaded!=false" id="contactTable">
+    <thead class="thead-light">
+      <tr>
+        <th></th>
+        <th>Name</th>
+        <th>Surname</th>
+        <th>E-Mail</th> 
+        <th>Phone Number</th>
+        <th></th>
+      </tr>
+    </thead> 
+  
+    <tbody>
+      <tr *ngFor="let contact of contacts | filterPipe:filterText | sortPipe" id="contactInfos" >
+        <td (click)="showInfos(contact.id,content,false)">
+          <div class="form-check">
+            <!-- <i id="contactImage" class="bi bi-person-circle"></i>          -->
+            <img src="../assets/photos/anonymous.jpg" alt="">
+          </div>
+        </td>
+        <td (click)="showInfos(contact.id,content,false)">{{contact.firsT_NAME |uppercase}}</td>
+        <td (click)="showInfos(contact.id,content,false)">{{contact.lasT_NAME |uppercase}}</td>
+        <td (click)="showInfos(contact.id,content,false)">{{contact.mail}}</td>
+        <td (click)="showInfos(contact.id,content,false)">{{contact.phonE_NUMBER }}</td>
+        <td>
+          <div id="settings">          
+            <i class="bi bi-telephone-x" id="block" (click)="checkPopUp(contact.id,content2)" style="color:gray;font-size: x-large;"></i>
+        </div> 
+        </td>
+      </tr>
+    </tbody>
+    
+  </table>
+  
+  <br><br><br><br>
+
+  <ng-template #content let-modal><!--Info,Edit-->
+    <div class="modal-header">
+      <h5 class="modal-title" id="modal-basic-title">Contact information</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="modal.close('Save click')"></button>
+    </div>
+    <div class="modal-body">
+      <form [formGroup]="contactUpdateForm">
+        <div class="mb-2" style="text-align: center;">
+          <img src="../assets/photos/anonymous.jpg" alt="" style="width: 100px;height: 100px;">
+        </div>
+        <div class="mb-2">
+          <label>Name</label>
+          <div class="form-group">
+              <input type="text" class="form-control" value={{contact.firsT_NAME}} readonly="readonly">
+          </div>
+        </div>
+        <div class="mb-2">
+          <label>Surname</label>
+          <div class="form-group">
+              <input type="text" class="form-control" value={{contact.lasT_NAME}} readonly="readonly"/>
+          </div>
+        </div>
+        <div class="mb-2">
+          <label>Phone Number</label>
+          <div class="form-group">
+              <input type="text" class="form-control" value={{contact.phonE_NUMBER}} readonly="readonly"/>
+          </div>
+        </div>
+        <div class="mb-2">
+          <label>E-mail</label>
+          <div class="form-group">
+              <input type="text" class="form-control" value={{contact.mail}} readonly="readonly"/>
+          </div>
+        </div>
+        <button type="button" class="btn btn-outline-success" (click)="getDetail()" *ngIf="detail==false">+More Detail</button>
+        <div class="mb-2" *ngIf="detail==true">
+          <label>Title</label>
+          <div class="form-group">
+              <input type="text" class="form-control" value={{contact.title}} readonly="readonly"/>
+          </div>
+        </div>
+        <div class="mb-2" *ngIf="detail==true">
+          <label>Company</label>
+          <div class="form-group">
+              <input type="text" class="form-control" value={{contact.company}} readonly="readonly"/>
+          </div>
+        </div>
+        <div class="mb-2" *ngIf="detail==true">
+          <label>Notes</label>
+          <div class="form-group">
+              <input type="text" class="form-control input-lg" value={{contact.notes}} readonly="readonly"/>
+          </div>
+        </div>
+      </form>
+    </div>
+  </ng-template>
+
+  <ng-template #content2 let-modal><!--Block-->
+    <div class="modal-header">
+      <h5 class="modal-title" id="modal-basic-title" *ngIf="contact.block==false">Are you sure you want to block the contact?</h5>
+      <h5 class="modal-title" id="modal-basic-title" *ngIf="contact.block==true">Are you sure you want to unblock the contacts?</h5>
+    </div>
+    <div class="modal-body">
+      <button type="button" id="cancel" class="btn btn-danger" (click)="modal.close('Save click')">Cancel</button>
+      <button type="button" id="delete" class="btn btn-success" (click)="editBlock(contact.id)" *ngIf="contact.block==false">Block</button>
+      <button type="button" id="delete" class="btn btn-success" (click)="editBlock(contact.id)" *ngIf="contact.block==true">Unblock</button>
+    </div>
+  </ng-template>  

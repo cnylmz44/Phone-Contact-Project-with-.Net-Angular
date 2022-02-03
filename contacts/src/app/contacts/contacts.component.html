@@ -1,0 +1,253 @@
+<div id="container">   
+  <div *ngIf="dataLoaded==false" class="text-center" id="spinner" >
+    <div class="spinner-border text-success" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+
+  <br>
+  
+  <!-- <input type="file" class="file-input" (change)="onFileSelected($event)" #fileUpload> -->
+
+<table datatable class="row-border stripe" *ngIf="dataLoaded!=false" id="contactTable" style="width: 100%;">
+  <thead class="thead-light">
+    <tr>
+      <th></th>
+      <th id="nameBlock">Name</th>
+      <th>Surname</th>
+      <th id="numberBlock">Phone Number</th>
+      <th id="mailBlock">E-Mail</th> 
+      <th></th>
+    </tr>
+  </thead> 
+
+  <tbody>
+    <tr *ngFor="let contact of contacts | filterPipe:filterText | sortPipe" id="contactInfos" >
+      <td (click)="showInfos(contact.id,content2,false)">
+        <div class="form-check">
+          <!-- <i id="contactImage" class="bi bi-person-circle"></i>          -->
+          <img src="../assets/photos/anonymous.jpg" alt="">
+        </div>
+      </td>
+      <td (click)="showInfos(contact.id,content2,false)">{{contact.firsT_NAME |uppercase}}</td>
+      <td (click)="showInfos(contact.id,content2,false)">{{contact.lasT_NAME |uppercase}}</td>
+      <td id="numberBlock" (click)="showInfos(contact.id,content2,false)">{{contact.phonE_NUMBER }}</td>
+      <td id="mailBlock" (click)="showInfos(contact.id,content2,false)">{{contact.mail}}</td>
+      <td>
+        <div id="settings">
+          <div>
+              <div class="col">
+                 <div ngbDropdown>
+                  <i id="dropdownBasic1" ngbDropdownToggle></i>
+                  <div ngbDropdownMenu aria-labelledby="dropdownBasic1" (click)="getById(contact.id)">
+                    <button ngbDropdownItem (click)="checkPopUp(contact.id,content5)"><i class="bi bi-archive" ></i>Hide</button>
+                    <button ngbDropdownItem (click)="checkPopUp(contact.id,content6)"><i class="bi bi-telephone-x"></i>Block</button>
+                    <button ngbDropdownItem (click)="open(content)"><i class="bi bi-trash" ></i>Delete</button>
+                  </div>
+                 </div>
+              </div>
+          </div>    
+          <i class="bi bi-pencil-square" title="Edit Contact" (click)="showInfos(contact.id,content2,true)"></i>          
+          <i class="bi bi-star-fill" id="star" (click)="checkPopUp(contact.id,content4)" *ngIf="contact.favourite==false" ></i>
+          <i class="bi bi-star-fill" id="star" (click)="checkPopUp(contact.id,content4)" *ngIf="contact.favourite==true" style="color:yellow"></i>
+        </div> 
+      </td>
+    </tr>
+  </tbody>
+  
+</table>
+
+<br><br><br><br>
+
+<div id="addButtonDiv">
+  <button type="button" class="btn btn-success" id="addButton" (click)="open(content3)" ><i id="addIcon" class="bi bi-person-plus-fill"></i></button>
+</div>
+
+</div>
+
+<ng-template #content let-modal><!--Delete-->
+  <div class="modal-header">
+    <h5 class="modal-title" id="modal-basic-title">Delete this contact?</h5>
+  </div>
+  <div class="modal-body">
+    <button type="button" id="cancel" class="btn btn-outline-success" (click)="modal.close('Save click')">Cancel</button>
+    <button type="button" id="delete" class="btn btn-danger" (click)="delete(contact)">Delete</button>
+  </div>
+</ng-template>
+
+<ng-template #content2 let-modal><!--Info,Edit-->
+  <div class="modal-header">
+    <h5 class="modal-title" id="modal-basic-title" *ngIf="editable!=false">Contact information</h5>
+    <h5 class="modal-title" id="modal-basic-title" *ngIf="editable==false">Edit Contact</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="modal.close('Save click')"></button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="contactUpdateForm">
+      <div class="mb-2" style="text-align: center;">
+        <img src="../assets/photos/anonymous.jpg" alt="" style="width: 100px;height: 100px;">
+      </div>
+      <div class="mb-2">
+        <label>Name</label>
+        <div class="form-group">
+            <input type="text" class="form-control" value={{contact.firsT_NAME}} readonly="readonly" *ngIf="editable!=false"/>
+            <input type="text" class="form-control" formControlName="firsT_NAME" value={{contact.firsT_NAME}} *ngIf="editable==false"/>
+        </div>
+      </div>
+      <div class="mb-2">
+        <label>Surname</label>
+        <div class="form-group">
+            <input type="text" class="form-control" value={{contact.lasT_NAME}} readonly="readonly" *ngIf="editable!=false"/>
+            <input type="text" class="form-control" formControlName="lasT_NAME" value={{contact.lasT_NAME}} *ngIf="editable==false"/>
+        </div>
+      </div>
+      <div class="mb-2">
+        <label>Phone Number</label>
+        <div class="form-group">
+            <input type="text" class="form-control" value={{contact.phonE_NUMBER}} readonly="readonly" *ngIf="editable!=false"/>
+            <input type="text" class="form-control" formControlName="phonE_NUMBER" value={{contact.phonE_NUMBER}} onkeydown="javascript: return event.keyCode === 8 ||
+            event.keyCode === 46 ? true : !isNaN(Number(event.key))" *ngIf="editable==false"/>
+        </div>
+      </div>
+      <div class="mb-2">
+        <label>E-mail</label>
+        <div class="form-group">
+            <input type="text" class="form-control" value={{contact.mail}} readonly="readonly" *ngIf="editable!=false"/>
+            <input type="text" class="form-control" formControlName="mail" value={{contact.mail}} *ngIf="editable==false"/>
+        </div>
+      </div>
+      <button type="button" class="btn btn-outline-success" (click)="getDetail()" *ngIf="detail==false">+More Detail</button>
+      <div class="mb-2" *ngIf="detail==true">
+        <label>Title</label>
+        <div class="form-group">
+            <input type="text" class="form-control" value={{contact.title}} readonly="readonly" *ngIf="editable!=false"/>
+            <input type="text" class="form-control" formControlName="title" value={{contact.title}} *ngIf="editable==false"/>
+        </div>
+      </div>
+      <div class="mb-2" *ngIf="detail==true">
+        <label>Company</label>
+        <div class="form-group">
+            <input type="text" class="form-control" value={{contact.company}} readonly="readonly" *ngIf="editable!=false"/>
+            <input type="text" class="form-control" formControlName="company" value={{contact.company}} *ngIf="editable==false"/>
+        </div>
+      </div>
+      <div class="mb-2" *ngIf="detail==true">
+        <label>Notes</label>
+        <div class="form-group">
+            <input type="text" class="form-control input-lg" value={{contact.notes}} readonly="readonly" *ngIf="editable!=false"/>
+            <input type="text" class="form-control input-lg" formControlName="notes" value={{contact.notes}} *ngIf="editable==false"/>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div class="modal-footer">
+    <button type="button" id="cancel" class="btn btn-outline-success" (click)="edit()" *ngIf="editable!=false">Edit</button>
+    <button type="button" id="cancel" class="btn btn-success" (click)="update()" *ngIf="editable==false">Save</button>
+  </div>  
+</ng-template>
+
+<ng-template #content3 let-modal><!--Add-->
+  <div class="modal-header">
+    <h5 class="modal-title" *ngIf="editable!=false" id="modal-basic-title">+Add Contact</h5>
+    <h5 class="modal-title" *ngIf="editable==false" id="modal-basic-title">Contact information</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="modal.close('Save click')"></button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="contactAddForm">
+      <div class="mb-2" style="text-align: center;">  
+        <img src="../assets/photos/anonymous.jpg" alt="" style="width: 100px;height: 100px;">
+      </div>
+      <div class="mb-2">
+        <label>Name</label>
+        <div class="form-group">
+            <input type="text" class="form-control" formControlName="firsT_NAME" *ngIf="editable!=false" placeholder="Enter name"/>
+            <input type="text" class="form-control" formControlName="firsT_NAME" *ngIf="editable==false" placeholder="Enter name" readonly="readonly"/>
+        </div>
+      </div>
+      <div class="mb-2">
+        <label>Surname</label>
+        <div class="form-group">
+            <input type="text" class="form-control" formControlName="lasT_NAME" *ngIf="editable!=false" placeholder="Enter surname"/>
+            <input type="text" class="form-control" formControlName="lasT_NAME" *ngIf="editable==false" placeholder="Enter surname" readonly="readonly"/>
+        </div>
+      </div>
+      <div class="mb-2">
+        <label>Phone Number</label>
+        <div class="form-group">
+            <input type="text" class="form-control" formControlName="phonE_NUMBER" *ngIf="editable!=false" placeholder="Enter a phone number" onkeydown="javascript: return event.keyCode === 8 ||
+            event.keyCode === 46 ? true : !isNaN(Number(event.key))"/>
+            <input type="text" class="form-control" formControlName="phonE_NUMBER" *ngIf="editable==false" placeholder="Enter a phone number" readonly="readonly"/>
+        </div>
+      </div>
+      <div class="mb-2">
+        <label>E-Mail</label>
+        <div class="form-group">
+            <input type="text" class="form-control" formControlName="mail" *ngIf="editable!=false" placeholder="Enter a e-mail adress"/>
+            <input type="text" class="form-control" formControlName="mail" *ngIf="editable==false" placeholder="Enter a e-mail adress" readonly="readonly"/>
+        </div>
+      </div>
+      <button type="button" class="btn btn-outline-success" (click)="getDetail()" *ngIf="detail==false">+More Detail</button>
+      <div class="mb-2" *ngIf="detail==true">
+        <label>Title</label>
+        <div class="form-group">
+          <input type="text" class="form-control" formControlName="title" *ngIf="editable!=false" placeholder="Enter a title"/>  
+          <input type="text" class="form-control" formControlName="title" *ngIf="editable==false" placeholder="Enter a title" readonly="readonly"/>
+        </div>
+      </div>
+      <div class="mb-2" *ngIf="detail==true">
+        <label>Company</label>
+        <div class="form-group">
+            <input type="text" class="form-control" formControlName="company" *ngIf="editable!=false" placeholder="Enter a company"/>
+            <input type="text" class="form-control" formControlName="company" *ngIf="editable==false" placeholder="Enter a company" readonly="readonly"/>
+        </div>
+      </div>
+      <div class="mb-2" *ngIf="detail==true">
+        <label>Notes</label>
+        <div class="form-group">
+            <input type="text" class="form-control input-lg" formControlName="notes" *ngIf="editable!=false" placeholder="Enter notes"/>
+            <input type="text" class="form-control input-lg" formControlName="notes" *ngIf="editable==false" placeholder="Enter notes" readonly="readonly"/>
+        </div>
+      </div>
+    </form>
+  </div> 
+  <div class="modal-footer">
+    <button type="button" id="cancel" class="btn btn-fill btn-success" (click)="add()">+Add Contact</button> 
+  </div>  
+</ng-template>
+
+<ng-template #content4 let-modal><!--Favourite-->
+  <div class="modal-header">
+    <h5 class="modal-title" id="modal-basic-title" *ngIf="contact.favourite==false">Are you sure you want to add to favourites?</h5>
+    <h5 class="modal-title" id="modal-basic-title" *ngIf="contact.favourite==true">Are you sure you want to remove from favourites?</h5>
+  </div>
+  <div class="modal-body">
+    <button type="button" id="cancel" class="btn btn-danger" (click)="modal.close('Save click')">Cancel</button>
+    <button type="button" id="delete" class="btn btn-success" (click)="editFavourite(contact.id)" *ngIf="contact.favourite==false">Add</button>
+    <button type="button" id="delete" class="btn btn-success" (click)="editFavourite(contact.id)" *ngIf="contact.favourite==true">Remove</button>
+  </div>
+</ng-template>
+
+<ng-template #content5 let-modal><!--Hide-->
+  <div class="modal-header">
+    <h5 class="modal-title" id="modal-basic-title" *ngIf="contact.hide==false">Are you sure you want to hide the contact?</h5>
+    <h5 class="modal-title" id="modal-basic-title" *ngIf="contact.hide==true">Are you sure you want to unhide the contact?</h5>
+  </div>
+  <div class="modal-body">
+    <button type="button" id="cancel" class="btn btn-danger" (click)="modal.close('Save click')">Cancel</button>
+    <button type="button" id="delete" class="btn btn-success" (click)="editHide(contact.id)" *ngIf="contact.hide==false">Hide</button>
+    <button type="button" id="delete" class="btn btn-success" (click)="editHide(contact.id)" *ngIf="contact.hide==true">Unhide</button>
+  </div>
+</ng-template>
+
+<ng-template #content6 let-modal><!--Block-->
+  <div class="modal-header">
+    <h5 class="modal-title" id="modal-basic-title" *ngIf="contact.block==false">Are you sure you want to block the contact?</h5>
+    <h5 class="modal-title" id="modal-basic-title" *ngIf="contact.block==true">Are you sure you want to unblock the contacts?</h5>
+  </div>
+  <div class="modal-body">
+    <button type="button" id="cancel" class="btn btn-danger" (click)="modal.close('Save click')">Cancel</button>
+    <button type="button" id="delete" class="btn btn-success" (click)="editBlock(contact.id)" *ngIf="contact.block==false">Block</button>
+    <button type="button" id="delete" class="btn btn-success" (click)="editBlock(contact.id)" *ngIf="contact.block==true">Unblock</button>
+  </div>
+</ng-template>
+

@@ -1,0 +1,84 @@
+
+<br>
+
+<div class="container">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header"><h4 class="title">+Edit Contact</h4></div>
+            <div class="card-body">
+                <form [formGroup]="contactUpdateForm">
+                    <div class="mb-3">
+                        <label for="contactName">Name</label>
+                        <div class="form-group">
+                            <input type="text" id="contactName" formControlName="firsT_NAME" 
+                            class="form-control" placeholder="Enter name" *ngIf="editable!=false"/>
+                            <input type="text" id="contactName" formControlName="firsT_NAME" 
+                            class="form-control" placeholder="Enter name" *ngIf="editable==false" readonly="readonly"/>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="contactName">Surname</label>
+                        <div class="form-group">
+                            <input type="text" id="contactSurname" formControlName="lasT_NAME" 
+                            class="form-control" placeholder="Enter surname" *ngIf="editable!=false"/>
+                            <input type="text" id="contactSurname" formControlName="lasT_NAME" 
+                            class="form-control" placeholder="Enter surname" *ngIf="editable==false" readonly="readonly"/>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="contactNumber">Number</label>
+                        <div class="form-group">
+                            <input type="text" id="contactNumber" formControlName="phonE_NUMBER" 
+                            class="form-control" placeholder="Enter a phone number" *ngIf="editable!=false"/>
+                            <input type="text" id="contactNumber" formControlName="phonE_NUMBER" 
+                            class="form-control" placeholder="Enter a phone number" *ngIf="editable==false" readonly="readonly"/>
+                        </div>
+                    </div>
+                    <div class="mb-3" *ngIf="detail==false">
+                        <button class="btn btn-fill btn-outline-success"  (click)="showMore()">+ Show more</button>
+                    </div>
+                    <div class="mb-3" *ngIf="detail==true">
+                        <label for="contactMail">Mail</label>
+                        <div class="form-group">
+                            <input type="text" id="contactMail" formControlName="mail" 
+                            class="form-control" placeholder="Enter an e-mail adress" *ngIf="editable!=false"/>
+                            <input type="text" id="contactMail" formControlName="mail" 
+                            class="form-control" placeholder="Enter an e-mail adress" *ngIf="editable==false" readonly="readonly"/>
+                        </div>
+                    </div>
+                    <div class="mb-3" *ngIf="detail==true">
+                        <label for="contactTitle">Title</label>
+                        <div class="form-group">
+                            <input type="text" id="contactTitle" formControlName="title" 
+                            class="form-control" placeholder="Enter a title" *ngIf="editable!=false"/>
+                            <input type="text" id="contactTitle" formControlName="title" 
+                            class="form-control" placeholder="Enter a title" *ngIf="editable==false" readonly="readonly"/>
+                        </div>
+                    </div>
+                    <div class="mb-3" *ngIf="detail==true">
+                        <label for="contactCompany">Company</label>
+                        <div class="form-group">
+                            <input type="text" id="contactCompany" formControlName="company" 
+                            class="form-control" placeholder="Enter a company" *ngIf="editable!=false"/>
+                            <input type="text" id="contactCompany" formControlName="company" 
+                            class="form-control" placeholder="Enter a company" *ngIf="editable==false" readonly="readonly"/>
+                        </div>
+                    </div>
+                    <div class="mb-3" *ngIf="detail==true">
+                        <label for="contactNotes">Notes</label>
+                        <div class="form-group">
+                            <input type="text" id="contactNotes" formControlName="notes" 
+                            class="form-control" placeholder="Enter notes" *ngIf="editable!=false"/>
+                            <input type="text" id="contactNotes" formControlName="notes" 
+                            class="form-control" placeholder="Enter notes" *ngIf="editable==false" readonly="readonly"/>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="card-footer">
+                <button type="submit" class="btn btn-fill btn-success" (click)="update()">Save</button>
+            </div>           
+        </div>
+    </div>
+</div>
+

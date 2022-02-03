@@ -1,0 +1,10 @@
+C:\Users\canyl\Desktop\ContactsApi\Core\bin\Debug\netcoreapp3.1\Core.deps.json
+C:\Users\canyl\Desktop\ContactsApi\Core\bin\Debug\netcoreapp3.1\Core.dll
+C:\Users\canyl\Desktop\ContactsApi\Core\bin\Debug\netcoreapp3.1\Core.pdb
+C:\Users\canyl\Desktop\ContactsApi\Core\obj\Debug\netcoreapp3.1\Core.csproj.AssemblyReference.cache
+C:\Users\canyl\Desktop\ContactsApi\Core\obj\Debug\netcoreapp3.1\Core.AssemblyInfoInputs.cache
+C:\Users\canyl\Desktop\ContactsApi\Core\obj\Debug\netcoreapp3.1\Core.AssemblyInfo.cs
+C:\Users\canyl\Desktop\ContactsApi\Core\obj\Debug\netcoreapp3.1\Core.csproj.CoreCompileInputs.cache
+C:\Users\canyl\Desktop\ContactsApi\Core\obj\Debug\netcoreapp3.1\Core.dll
+C:\Users\canyl\Desktop\ContactsApi\Core\obj\Debug\netcoreapp3.1\Core.pdb
+C:\Users\canyl\Desktop\ContactsApi\Core\bin\Debug\netcoreapp3.1\nlog.config
